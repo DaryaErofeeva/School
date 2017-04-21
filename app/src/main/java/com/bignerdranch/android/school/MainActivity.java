@@ -12,13 +12,12 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.inputmethod.InputMethodManager;
 
-import com.bignerdranch.android.school.models.User;
-import com.kosalgeek.android.json.JsonConverter;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.kosalgeek.genasync12.AsyncResponse;
 import com.kosalgeek.genasync12.PostResponseAsyncTask;
 
 import java.sql.Date;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -79,7 +78,6 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_send) {
-
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

@@ -31,6 +31,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.kosalgeek.genasync12.*;
 import com.kosalgeek.genasync12.MainActivity;
 
@@ -103,6 +105,7 @@ public class LoginActivity extends AppCompatActivity {
                         @Override
                         public void processFinish(String s) {
                             if (s.contains("Login Successfully")) {
+                                putToken();
                                 startActivity(new Intent(LoginActivity.this, com.bignerdranch.android.school.MainActivity.class));
                             } else {
                                 Toast.makeText(LoginActivity.this, "Неверный логин или пароль", Toast.LENGTH_LONG).show();
@@ -111,6 +114,21 @@ public class LoginActivity extends AppCompatActivity {
                     });
             loginTask.execute("http://i-gift.tech/login.php");
         }
+    }
+
+
+    private void putToken() {
+        FirebaseMessaging.getInstance().subscribeToTopic("test");
+        final String token = FirebaseInstanceId.getInstance().getToken();
+
+        HashMap<String, String> postData=new HashMap<>();
+        postData.put("token", token);
+        PostResponseAsyncTask task=new PostResponseAsyncTask(this, postData, new AsyncResponse() {
+            @Override
+            public void processFinish(String s) {
+            }
+        });
+        task.execute("http://i-gift.tech/register.php");
     }
 }
 
