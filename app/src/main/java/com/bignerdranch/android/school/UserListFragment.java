@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Adapter;
 import android.widget.ArrayAdapter;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
@@ -37,6 +38,7 @@ public class UserListFragment extends Fragment implements AsyncResponse {
 
     View view;
     ListView mListView;
+    GridView mGridView;
 
     public UserListFragment() {
         // Required empty public constructor
@@ -72,7 +74,7 @@ public class UserListFragment extends Fragment implements AsyncResponse {
         userBindDictionary.addDynamicImageField(R.id.iv_photo, new StringExtractor<User>() {
             @Override
             public String getStringValue(User user, int position) {
-                String value = (user.photo.isEmpty() ? "R.drawable.owl" : user.photo);
+                String value = (user.photo.isEmpty() ? "http://i-gift.tech/images/owl.jpg" : user.photo);
                 return value;
             }
         }, new DynamicImageLoader() {
@@ -80,9 +82,8 @@ public class UserListFragment extends Fragment implements AsyncResponse {
             public void loadImage(String url, ImageView view) {
                 Picasso.with(getContext())
                         .load(url)
-                        .placeholder(R.drawable.owl)
-                        .error(R.drawable.owl)
                         .transform(new CropCircleTransformation())
+                        .error(R.drawable.owl)
                         .into(view);
             }
         });
