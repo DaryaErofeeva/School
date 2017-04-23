@@ -39,7 +39,11 @@ public class AccountFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_account, container, false);
         mImageView = (ImageView) view.findViewById(R.id.iv_photo);
-        Picasso.with(getContext()).load(R.drawable.owl).transform(new CropCircleTransformation()).into(mImageView);
+        //Picasso
+        //        .with(getContext())
+        //        .load(R.drawable.ic_menu_camera)
+        //        .transform(new CropCircleTransformation())
+        //        .into(mImageView);
         mLoginView = (EditText) view.findViewById(R.id.et_login);
         mPasswordView = (EditText) view.findViewById(R.id.et_password);
         mRepeatPasswordView = (EditText) view.findViewById(R.id.et_repeat_password);

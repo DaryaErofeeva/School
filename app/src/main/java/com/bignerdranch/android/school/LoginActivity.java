@@ -24,6 +24,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -31,6 +32,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bignerdranch.android.school.admin.AdminDrawerActivity;
+import com.bignerdranch.android.school.teacher.TeacherDrawerActivity;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.kosalgeek.genasync12.*;
@@ -43,6 +46,7 @@ import java.util.List;
 import static android.Manifest.permission.READ_CONTACTS;
 
 public class LoginActivity extends AppCompatActivity {
+    InputMethodManager inputMethodManager;
 
     private EditText mLoginView;
     private EditText mPasswordView;
@@ -64,10 +68,14 @@ public class LoginActivity extends AppCompatActivity {
                 attemptLogin();
             }
         });
+
+        inputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
     }
 
 
     private void attemptLogin() {
+        inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+
         mLoginView.setError(null);
         mPasswordView.setError(null);
 
@@ -106,9 +114,24 @@ public class LoginActivity extends AppCompatActivity {
                         public void processFinish(String s) {
                             if (s.contains("Login Successfully")) {
                                 putToken();
-                                startActivity(new Intent(LoginActivity.this, com.bignerdranch.android.school.MainActivity.class));
+                                if (s.contains("admin"))
+                                    startActivity(new Intent(LoginActivity.this, AdminDrawerActivity.class));
+                                else if (s.contains("teacher"))
+                                    startActivity(new Intent(LoginActivity.this, TeacherDrawerActivity.class));
+                                else if (s.contains("pupil"))
+                                    startActivity(new Intent(LoginActivity.this, TeacherDrawerActivity.class));
+                                else if (s.contains("parent"))
+                                    startActivity(new Intent(LoginActivity.this, TeacherDrawerActivity.class));
+                                else
+                                    Snackbar.make(LoginActivity.this.getCurrentFocus(),
+                                            R.string.error_user_without_role,
+                                            Snackbar.LENGTH_LONG)
+                                            .show();
                             } else {
-                                Toast.makeText(LoginActivity.this, "Неверный логин или пароль", Toast.LENGTH_LONG).show();
+                                Snackbar.make(LoginActivity.this.getCurrentFocus(),
+                                        R.string.error_login_failed,
+                                        Snackbar.LENGTH_LONG)
+                                        .show();
                             }
                         }
                     });
@@ -121,9 +144,9 @@ public class LoginActivity extends AppCompatActivity {
         FirebaseMessaging.getInstance().subscribeToTopic("test");
         final String token = FirebaseInstanceId.getInstance().getToken();
 
-        HashMap<String, String> postData=new HashMap<>();
+        HashMap<String, String> postData = new HashMap<>();
         postData.put("token", token);
-        PostResponseAsyncTask task=new PostResponseAsyncTask(this, postData, new AsyncResponse() {
+        PostResponseAsyncTask task = new PostResponseAsyncTask(this, postData, new AsyncResponse() {
             @Override
             public void processFinish(String s) {
             }
