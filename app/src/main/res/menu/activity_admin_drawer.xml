@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_schedule"
+            android:icon="@drawable/format_list_numbers"
+            android:title="Расписание">
+            <item
+                android:id="@+id/nav_change_schedule"
+                android:title="Изменить/сформировать расписание"/>
+            <item
+                android:id="@+id/nav_replacement"
+                android:icon="@drawable/shuffle_variant"
+                android:title="Замены"/>
+            </item>
+        <item
+            android:id="@+id/nav_users"
+            android:icon="@drawable/account"
+            android:title="Пользователи"/>
+        <item
+            android:id="@+id/nav_marks"
+            android:icon="@drawable/numeric_5_box_multiple_outline"
+            android:title="Оценки"/>
+        <item
+            android:id="@+id/nav_forms"
+            android:icon="@drawable/account_multiple"
+            android:title="Классы"/>
+        <item
+            android:id="@+id/nav_subjects"
+            android:icon="@drawable/book_open_page_variant"
+            android:title="Предметы"/>
+    </group>
+
+</menu>

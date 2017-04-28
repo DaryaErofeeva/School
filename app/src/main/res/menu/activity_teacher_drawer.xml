@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_schedule"
+            android:icon="@drawable/format_list_numbers"
+            android:title="Расписание"/>
+        <item
+            android:id="@+id/nav_users"
+            android:icon="@drawable/account"
+            android:title="Пользователи"/>
+        <item
+            android:id="@+id/nav_marks"
+            android:icon="@drawable/numeric_5_box_multiple_outline"
+            android:title="Оценки"/>
+    </group>
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_exit"
+            android:icon="@drawable/run"
+            android:title="Выйти"
+            />
+    </group>
+
+</menu>
