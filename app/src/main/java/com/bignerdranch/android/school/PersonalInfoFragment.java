@@ -13,6 +13,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.view.WindowManager;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -22,9 +23,9 @@ import android.widget.TextView;
 import java.sql.Date;
 import java.util.Calendar;
 
-public class PersonalInfoFragment extends Fragment implements View.OnClickListener {
+public class PersonalInfoFragment extends Fragment implements View.OnFocusChangeListener {
 
-    private TextView mLastnameView, mFirstnameView, mPatronymicView, mBirthdayView;
+    private EditText mLastnameView, mFirstnameView, mPatronymicView, mBirthdayView;
     private RadioButton mMaleRadioButton;
 
     private OnFragmentListener mListener;
@@ -44,7 +45,7 @@ public class PersonalInfoFragment extends Fragment implements View.OnClickListen
         mFirstnameView = (EditText) view.findViewById(R.id.et_firstname);
         mPatronymicView = (EditText) view.findViewById(R.id.et_patronymic);
         mBirthdayView = (EditText) view.findViewById(R.id.et_birthday);
-        mBirthdayView.setOnClickListener(this);
+        mBirthdayView.setOnFocusChangeListener(this);
         mMaleRadioButton = (RadioButton) view.findViewById(R.id.rb_male);
 
         d = new DatePickerDialog.OnDateSetListener() {
@@ -61,8 +62,8 @@ public class PersonalInfoFragment extends Fragment implements View.OnClickListen
     }
 
     @Override
-    public void onClick(View v) {
-        setDate();
+    public void onFocusChange(View v, boolean hasFocus) {
+        if (hasFocus) setDate();
     }
 
     public void setDate() {

@@ -2,20 +2,25 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
-              android:paddingTop="2dp"
+              android:orientation="horizontal"
               android:paddingBottom="2dp"
-              android:orientation="horizontal">
+              android:paddingTop="2dp">
 
-    <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/iv_photo"
-        android:layout_width="0.5dp"
+        android:layout_width="1dp"
         android:layout_height="match_parent"
-        android:layout_weight="0.5"/>
+        android:layout_weight="1"
+        android:padding="2dp"
+        android:src="@drawable/accountcircle"
+        app:civ_border_color="#FF000000"
+        app:civ_border_width="2dp"/>
 
     <LinearLayout
-        android:layout_width="0.5dp"
+        android:layout_width="1dp"
         android:layout_height="wrap_content"
-        android:layout_weight="2"
+        android:layout_weight="3"
         android:orientation="vertical"
         android:paddingTop="8dp">
 

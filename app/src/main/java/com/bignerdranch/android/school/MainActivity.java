@@ -20,12 +20,11 @@ import java.util.HashMap;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, OnFragmentListener {
+        implements NavigationView.OnNavigationItemSelectedListener, OnFragmentListener, AsyncResponse {
 
     private InputMethodManager inputMethodManager;
     private FragmentManager fragmentManager = getSupportFragmentManager();
     private HashMap<String, String> postData = new HashMap<>();
-    private PostResponseAsyncTask mTask;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,29 +89,12 @@ public class MainActivity extends AppCompatActivity
         postData.clear();
         postData.put("login", login);
         postData.put("password", password);
-        isLoginExist();
-    }
 
-    private void isLoginExist() {
-        mTask =
-                new PostResponseAsyncTask(this, postData, new AsyncResponse() {
-                    @Override
-                    public void processFinish(String s) {
-                        if (s.contains("yes")) {
-                            Snackbar.make(MainActivity.this.getCurrentFocus(),
-                                    R.string.error_login_existed,
-                                    Snackbar.LENGTH_LONG)
-                                    .setAction("Action", null).show();
-                        } else {
-                            fragmentManager.beginTransaction().
-                                    replace(R.id.navigation_header_container, new PersonalInfoFragment())
-                                    .commit();
-                        }
-                    }
-                });
-
-
-        mTask.execute("http://i-gift.tech/is_login_exist.php");
+        fragmentManager.beginTransaction().
+                replace(
+                        R.id.navigation_header_container,
+                        new PersonalInfoFragment())
+                .commit();
     }
 
     @Override
@@ -124,7 +106,12 @@ public class MainActivity extends AppCompatActivity
         postData.put("patronymic", patronymic);
         postData.put("gender", gender);
         postData.put("birth_date", birth_date.toString());
-        fragmentManager.beginTransaction().replace(R.id.navigation_header_container, new ContactsFragment()).commit();
+        fragmentManager
+                .beginTransaction()
+                .replace(
+                        R.id.navigation_header_container,
+                        new ContactsFragment())
+                .commit();
     }
 
     @Override
@@ -132,26 +119,25 @@ public class MainActivity extends AppCompatActivity
         inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
 
         postData.put("email", email);
-        //fragmentManager.beginTransaction().remove(mContactsFragment).commit();
 
-        mTask =
-                new PostResponseAsyncTask(this, postData, new AsyncResponse() {
-                    @Override
-                    public void processFinish(String s) {
-                        String msg = "Польователь " +
-                                postData.get("lastname") + " " +
-                                postData.get("firstname") + " " +
-                                postData.get("patronymic") + " ";
-                        if (s.contains("true"))
-                            msg += "добавлен";
-                        else msg += "не добавлен";
+        PostResponseAsyncTask task = new PostResponseAsyncTask(this, postData, this);
+        task.execute("http://i-gift.tech/create_user.php");
+    }
 
-                        Snackbar.make(MainActivity.this.getCurrentFocus(), msg, Snackbar.LENGTH_LONG)
-                                .setAction("Action", null).show();
-                    }
-                });
+    @Override
+    public void processFinish(String s) {
+        String msg = "Польователь " +
+                postData.get("lastname") + " " +
+                postData.get("firstname") + " " +
+                postData.get("patronymic") + " ";
+        if (s.contains("true"))
+            msg += "добавлен";
+        else msg += "не добавлен";
 
-
-        mTask.execute("http://i-gift.tech/create_user.php");
+        Snackbar
+                .make(
+                        MainActivity.this.getCurrentFocus(),
+                        msg, Snackbar.LENGTH_LONG)
+                .show();
     }
 }

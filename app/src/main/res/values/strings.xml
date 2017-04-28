@@ -20,7 +20,7 @@
     <string name="prompt_birthday">Дата рождения</string>
     <string name="action_sign_in">Войти</string>
     <string name="error_invalid_email">Некорректный email</string>
-    <string name="error_invalid_login">Некорректный email</string>
+    <string name="error_invalid_login">Некорректный логин</string>
     <string name="error_invalid_password">Слишком короткий пароль</string>
     <string name="error_incorrect_password">Неверный пароль</string>
     <string name="error_passwords_is_different">Пароль отличается</string>
@@ -34,13 +34,16 @@
     <string name="male">Мужской</string>
     <string name="female">Женский</string>
     <string name="action_submit">Готово</string>
-    <string name="title_activity_main2">Main2Activity</string>
     <string name="error_invalid_phone">Некорректный номер</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_admin_drawer">AdminDrawerActivity</string>
     <string name="title_activity_teacher_drawer">TeacherDrawerActivity</string>
-    <string name="error_user_without_role">Вход невозможен (пользователь не является администратором/учителем/учеником/родителем)</string>
+    <string name="error_user_without_role">Вход невозможен (пользователю не присвоена роль)</string>
     <string name="error_login_failed">Неверный логин или пароль</string>
+    <string name="msg_cancelled_image_capture">Фото не выбрано</string>
+    <string name="error_image_capture_failed">Ошибка при выборе картинки</string>
+    <string name="error_image_path_missing">Путь к картинке отсутствует</string>
+    <string name="btnUploadToServer">Загрузить</string>
 </resources>

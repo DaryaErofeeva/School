@@ -38,7 +38,6 @@ public class UserListFragment extends Fragment implements AsyncResponse {
 
     View view;
     ListView mListView;
-    GridView mGridView;
 
     public UserListFragment() {
         // Required empty public constructor
@@ -74,16 +73,14 @@ public class UserListFragment extends Fragment implements AsyncResponse {
         userBindDictionary.addDynamicImageField(R.id.iv_photo, new StringExtractor<User>() {
             @Override
             public String getStringValue(User user, int position) {
-                String value = (user.photo.isEmpty() ? "http://i-gift.tech/images/owl.jpg" : user.photo);
-                return value;
+                return user.photo;
             }
         }, new DynamicImageLoader() {
             @Override
             public void loadImage(String url, ImageView view) {
                 Picasso.with(getContext())
                         .load(url)
-                        .transform(new CropCircleTransformation())
-                        .error(R.drawable.owl)
+                        .error(R.drawable.accountcircle)
                         .into(view);
             }
         });

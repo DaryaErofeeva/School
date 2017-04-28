@@ -49,6 +49,12 @@
             android:label="@string/title_activity_teacher_drawer"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
+        <activity android:name=".admin.AddUserActivity">
+        </activity>
+        <activity android:name=".UploadActivity">
+        </activity>
+        <activity android:name=".UserActivity">
+        </activity>
     </application>
 
 </manifest>
